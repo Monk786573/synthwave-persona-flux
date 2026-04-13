@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ParticleBackground from "@/components/ParticleBackground";
+import BinaryBackground from "@/components/BinaryBackground";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
@@ -12,6 +13,7 @@ import JarvisOrb from "@/components/JarvisOrb";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background grain animate-page-load">
+      <BinaryBackground />
       <GlowCursor />
       <ParticleBackground />
       <Navbar />
