@@ -32,8 +32,9 @@ const SkillCard = ({ icon: Icon, title, desc, delay }: { icon: typeof Palette; t
     <div
       ref={(el) => {
         (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-        if (typeof ref === "function") ref(el);
-        else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        if (ref && typeof ref === "object" && "current" in ref) {
+          (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        }
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={handleMouseLeave}
