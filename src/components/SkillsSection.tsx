@@ -1,5 +1,5 @@
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Palette, Search, Film, Wrench } from "lucide-react";
 import { Palette, Search, Film, Wrench } from "lucide-react";
 
 const skills = [
