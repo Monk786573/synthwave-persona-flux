@@ -11,9 +11,20 @@ const skills = [
 
 const SkillCard = ({ icon: Icon, title, desc, delay }: { icon: typeof Palette; title: string; desc: string; delay: number }) => {
   const [hover, setHover] = useState(false);
-  const { ref, visible } = useScrollReveal();
   const cardRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -30,12 +41,7 @@ const SkillCard = ({ icon: Icon, title, desc, delay }: { icon: typeof Palette; t
 
   return (
     <div
-      ref={(el) => {
-        (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-        if (ref && typeof ref === "object" && "current" in ref) {
-          (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
-        }
-      }}
+      ref={cardRef}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
