@@ -26,13 +26,13 @@ const ContactSection = () => {
               himonkbavisetti@gmail.com
             </a>
             <a
-              href="https://instagram.com/technophile.x"
+              href="https://instagram.com/_technophile_.x"
               target="_blank"
               rel="noopener noreferrer"
               className="glass px-8 py-4 rounded-md flex items-center justify-center gap-3 font-mono text-sm text-foreground hover:text-primary hover:neon-border-red transition-all group"
             >
               <Instagram className="w-5 h-5 group-hover:text-glow-red transition-all" />
-              @technophile.x
+              @_technophile_.x
             </a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Palette, Search, Film, Wrench } from "lucide-react";
 
 const skills = [
@@ -12,16 +12,39 @@ const skills = [
 const SkillCard = ({ icon: Icon, title, desc, delay }: { icon: typeof Palette; title: string; desc: string; delay: number }) => {
   const [hover, setHover] = useState(false);
   const { ref, visible } = useScrollReveal();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -15, y: x * 15 });
+  };
+
+  const handleMouseLeave = () => {
+    setHover(false);
+    setTilt({ x: 0, y: 0 });
+  };
 
   return (
     <div
-      ref={ref}
+      ref={(el) => {
+        (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        if (typeof ref === "function") ref(el);
+        else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
+      }}
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
       className={`glass-red rounded-lg p-6 transition-all duration-500 cursor-pointer ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${hover ? "box-glow-red -translate-y-2 scale-[1.02]" : ""}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      } ${hover ? "box-glow-red" : ""}`}
+      style={{
+        transitionDelay: `${delay}ms`,
+        transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${hover ? "scale(1.03)" : "scale(1)"}`,
+      }}
     >
       <div className={`inline-flex p-3 rounded-md mb-4 transition-colors ${hover ? "bg-primary/20" : "bg-primary/5"}`}>
         <Icon className={`w-6 h-6 transition-all ${hover ? "text-primary text-glow-red" : "text-primary/70"}`} />

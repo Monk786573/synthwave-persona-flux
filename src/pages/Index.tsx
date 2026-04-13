@@ -6,10 +6,13 @@ import SkillsSection from "@/components/SkillsSection";
 import PhilosophySection from "@/components/PhilosophySection";
 import WorkSection from "@/components/WorkSection";
 import ContactSection from "@/components/ContactSection";
+import GlowCursor from "@/components/GlowCursor";
+import JarvisOrb from "@/components/JarvisOrb";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background grain animate-page-load">
+      <GlowCursor />
       <ParticleBackground />
       <Navbar />
       <HeroSection />
@@ -18,6 +21,7 @@ const Index = () => {
       <PhilosophySection />
       <WorkSection />
       <ContactSection />
+      <JarvisOrb />
     </div>
   );
 };
