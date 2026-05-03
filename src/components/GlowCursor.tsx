@@ -33,8 +33,8 @@ const GlowCursor = () => {
       ref={cursorRef}
       className="pointer-events-none fixed top-0 left-0 z-[9999] w-10 h-10 rounded-full mix-blend-screen"
       style={{
-        background: "radial-gradient(circle, hsl(120 100% 45% / 0.5) 0%, transparent 70%)",
-        boxShadow: "0 0 30px 10px hsl(120 100% 45% / 0.2)",
+        background: "radial-gradient(circle, hsl(190 100% 55% / 0.55) 0%, hsl(280 90% 65% / 0.2) 50%, transparent 75%)",
+        boxShadow: "0 0 30px 10px hsl(190 100% 55% / 0.25), 0 0 60px 20px hsl(280 90% 65% / 0.15)",
       }}
     />
   );
