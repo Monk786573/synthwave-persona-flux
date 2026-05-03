@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Orbitron", "sans-serif"],
-        body: ["Rajdhani", "sans-serif"],
-        mono: ["Share Tech Mono", "monospace"],
+        heading: ["Maiandra GD", "Trebuchet MS", "sans-serif"],
+        body: ["Maiandra GD", "Trebuchet MS", "sans-serif"],
+        mono: ["Trebuchet MS", "Maiandra GD", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
