@@ -1,4 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Sparkles, ArrowRight, Mail, MapPin, Code2, Palette } from "lucide-react";
+
+const TiltTile = ({
+  children,
+  className = "",
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [t, setT] = useState({ x: 0, y: 0 });
+
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    setT({ x: y * -8, y: x * 8 });
+  };
+  const onLeave = () => setT({ x: 0, y: 0 });
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={`bento-tile p-6 ${className}`}
+      style={{
+        transform: `perspective(900px) rotateX(${t.x}deg) rotateY(${t.y}deg)`,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const HeroSection = () => {
   const [time, setTime] = useState(new Date());
@@ -13,61 +51,102 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16"
-      style={{
-        background:
-          "radial-gradient(ellipse at 20% 20%, hsl(var(--clay-coral)) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, hsl(var(--clay-lavender)) 0%, transparent 55%), radial-gradient(ellipse at 50% 90%, hsl(var(--clay-mint)) 0%, transparent 55%), #FFF7F4",
-      }}
+      className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 bg-bento-base"
     >
-      {/* Floating clay blobs */}
-      <div className="absolute top-20 left-[8%] w-40 h-40 clay-blob clay-coral animate-float-soft" />
-      <div className="absolute top-40 right-[12%] w-56 h-56 clay-blob clay-lavender animate-float-soft" style={{ animationDelay: "1.2s" }} />
-      <div className="absolute bottom-24 left-[18%] w-32 h-32 clay-blob clay-mint animate-float-soft" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-10 right-[25%] w-24 h-24 clay-blob clay-coral animate-float-soft" style={{ animationDelay: "0.5s" }} />
+      {/* ambient glow */}
+      <div className="absolute -top-40 -left-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-30"
+           style={{ background: "radial-gradient(circle, hsl(var(--bento-amber)), transparent 70%)" }} />
+      <div className="absolute bottom-0 right-0 w-[480px] h-[480px] rounded-full blur-3xl opacity-25"
+           style={{ background: "radial-gradient(circle, hsl(var(--clay-lavender)), transparent 70%)" }} />
 
-      <div className="container mx-auto relative z-10 grid md:grid-cols-2 gap-12 items-center">
-        {/* Left: copy */}
-        <div className="animate-spring-in">
-          <div className="inline-flex items-center gap-2 clay px-4 py-2 mb-6 text-sm text-neutral-700">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            SYS://{fmt(time.getHours())}:{fmt(time.getMinutes())}:{fmt(time.getSeconds())} — Available
-          </div>
-          <h1 className="font-heading text-5xl md:text-7xl font-bold text-neutral-900 leading-[1.05] mb-6">
-            Hi, I'm <br />
-            <span className="text-gradient-amber">Himank.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-700 max-w-md mb-8 leading-relaxed">
-            UI/UX designer & tech enthusiast — crafting digital experiences that solve
-            real-world problems through technology.
-          </p>
-          <div className="flex flex-wrap gap-4">
+      <div className="container mx-auto relative z-10">
+        <div className="grid grid-cols-12 gap-4 md:gap-5 max-w-6xl mx-auto animate-spring-in">
+          {/* Status — top wide */}
+          <TiltTile className="col-span-12 md:col-span-8 flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-amber" />
+              <span className="text-white/80 text-sm tracking-wider">
+                SYS://{fmt(time.getHours())}:{fmt(time.getMinutes())}:{fmt(time.getSeconds())} — Available
+              </span>
+            </div>
+            <span className="text-xs uppercase tracking-[0.4em] text-bento-amber">// Portfolio v3</span>
+          </TiltTile>
+
+          {/* Avatar tile */}
+          <TiltTile
+            className="col-span-12 md:col-span-4 row-span-2 flex items-center justify-center min-h-[260px]"
+            style={{ background: "linear-gradient(145deg, hsl(var(--bento-amber)), #ff9358)" }}
+          >
+            <span className="font-heading text-[8rem] md:text-[9rem] font-bold text-black leading-none drop-shadow-lg">
+              H
+            </span>
+          </TiltTile>
+
+          {/* Main headline — large */}
+          <TiltTile className="col-span-12 md:col-span-8 row-span-2 min-h-[260px] flex flex-col justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-bento-amber mb-4">// Hello world</p>
+              <h1 className="font-heading text-5xl md:text-7xl font-bold text-white leading-[1.05]">
+                I'm <span className="text-gradient-amber">Himank</span>.<br />
+                UI/UX designer & tech enthusiast.
+              </h1>
+            </div>
+            <p className="text-white/70 text-base md:text-lg max-w-xl mt-6 leading-relaxed">
+              Crafting digital experiences that solve real-world problems through technology.
+            </p>
+          </TiltTile>
+
+          {/* Role tag */}
+          <TiltTile className="col-span-6 md:col-span-4 flex items-center gap-3">
+            <Palette className="w-7 h-7 text-bento-amber" />
+            <div>
+              <p className="text-white font-semibold">UI / UX</p>
+              <p className="text-white/50 text-xs">Design systems</p>
+            </div>
+          </TiltTile>
+
+          {/* Role tag 2 */}
+          <TiltTile className="col-span-6 md:col-span-4 flex items-center gap-3">
+            <Code2 className="w-7 h-7 text-bento-amber" />
+            <div>
+              <p className="text-white font-semibold">Builder</p>
+              <p className="text-white/50 text-xs">Web · Product</p>
+            </div>
+          </TiltTile>
+
+          {/* CTA — view work */}
+          <TiltTile
+            className="col-span-12 md:col-span-4 flex items-center justify-between"
+            style={{ background: "linear-gradient(135deg, hsl(var(--bento-amber)), #ff9358)" }}
+          >
+            <p className="font-heading text-xl text-black font-bold">View my work</p>
             <a
               href="#work"
-              className="clay clay-coral px-7 py-4 font-semibold text-neutral-900 hover:scale-[1.04] active:scale-95 transition-transform"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-black text-white hover:scale-110 transition-transform"
             >
-              View my work
+              <ArrowRight className="w-5 h-5" />
             </a>
-            <a
-              href="#contact"
-              className="clay clay-lavender px-7 py-4 font-semibold text-neutral-900 hover:scale-[1.04] active:scale-95 transition-transform"
-            >
-              Get in touch
-            </a>
-          </div>
-        </div>
+          </TiltTile>
 
-        {/* Right: floating 3D avatar made of clay shapes */}
-        <div className="relative h-[420px] md:h-[520px] flex items-center justify-center animate-spring-in" style={{ animationDelay: ".15s" }}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* big stacked clay disc */}
-            <div className="clay clay-mint w-72 h-72 md:w-80 md:h-80 rounded-full animate-float-soft" />
-          </div>
-          <div className="relative clay clay-coral w-56 h-56 md:w-64 md:h-64 rounded-full flex items-center justify-center animate-float-soft" style={{ animationDelay: ".7s" }}>
-            <span className="font-heading text-7xl md:text-8xl font-bold text-neutral-900">H</span>
-          </div>
-          <div className="absolute -top-4 right-6 clay clay-lavender w-20 h-20 rounded-3xl rotate-12 animate-float-soft" style={{ animationDelay: "1.4s" }} />
-          <div className="absolute bottom-2 left-4 clay clay-coral w-16 h-16 rounded-3xl -rotate-6 animate-float-soft" style={{ animationDelay: "2s" }} />
-          <div className="absolute top-10 left-2 clay w-14 h-14 rounded-full animate-float-soft" style={{ animationDelay: "1.7s" }} />
+          {/* Get in touch */}
+          <TiltTile className="col-span-6 md:col-span-4 flex items-center gap-3">
+            <Mail className="w-6 h-6 text-bento-amber" />
+            <a href="#contact" className="text-white font-semibold hover:text-bento-amber transition-colors">
+              Get in touch →
+            </a>
+          </TiltTile>
+
+          {/* Location */}
+          <TiltTile className="col-span-6 md:col-span-4 flex items-center gap-3">
+            <MapPin className="w-6 h-6 text-bento-amber" />
+            <p className="text-white font-semibold">Earth · Remote</p>
+          </TiltTile>
+
+          {/* Tagline */}
+          <TiltTile className="col-span-12 md:col-span-4 flex items-center gap-3">
+            <Sparkles className="w-6 h-6 text-bento-amber" />
+            <p className="text-white/80 text-sm">Concept → ship</p>
+          </TiltTile>
         </div>
       </div>
     </section>
