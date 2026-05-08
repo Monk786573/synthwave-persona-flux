@@ -1,64 +1,53 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useState, useRef, useEffect } from "react";
-import { Palette, Search, Film, Wrench } from "lucide-react";
 
 const skills = [
-  { icon: Palette, title: "Web & UI/UX Design", desc: "System UI designing, intuitive and aesthetic interfaces" },
-  { icon: Search, title: "Internet Detective", desc: "Deep research specialist for complex solutions" },
-  { icon: Film, title: "Digital Content Creation", desc: "Visual storytelling and creative digital design" },
-  { icon: Wrench, title: "Technical Troubleshooting", desc: "Mobile optimization, Wi-Fi fixes, performance tuning" },
+  { title: "UI/UX Design", level: 5 },
+  { title: "System UI", level: 4 },
+  { title: "Web Design", level: 5 },
+  { title: "Research", level: 4 },
+  { title: "Content", level: 3 },
+  { title: "Troubleshoot", level: 4 },
+  { title: "Prototyping", level: 4 },
+  { title: "Branding", level: 3 },
+  { title: "Mobile UX", level: 4 },
 ];
 
-const SkillCard = ({ icon: Icon, title, desc, delay }: { icon: typeof Palette; title: string; desc: string; delay: number }) => {
-  const [hover, setHover] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * -15, y: x * 15 });
-  };
-
-  const handleMouseLeave = () => {
-    setHover(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
+const IsoBlock = ({ title, level, idx }: { title: string; level: number; idx: number }) => {
+  const height = 30 + level * 22; // px
   return (
-    <div
-      ref={cardRef}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      className={`glass-red rounded-lg p-6 transition-all duration-500 cursor-pointer ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${hover ? "box-glow-red" : ""}`}
-      style={{
-        transitionDelay: `${delay}ms`,
-        transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${hover ? "scale(1.03)" : "scale(1)"}`,
-      }}
-    >
-      <div className={`inline-flex p-3 rounded-md mb-4 transition-colors ${hover ? "bg-primary/20" : "bg-primary/5"}`}>
-        <Icon className={`w-6 h-6 transition-all ${hover ? "text-primary text-glow-red" : "text-primary/70"}`} />
+    <div className="flex flex-col items-center group" style={{ animation: `spring-in .8s cubic-bezier(.2,1.2,.3,1) ${idx * 60}ms both` }}>
+      <div className="iso-block" style={{ width: 90, height: 90 }}>
+        {/* top face */}
+        <div
+          className="absolute inset-0 rounded-md"
+          style={{
+            background: "linear-gradient(135deg, hsl(var(--iso-1)), hsl(var(--iso-2)))",
+            transform: `translateZ(${height}px)`,
+            boxShadow: "0 0 0 1px hsl(var(--iso-3) / 0.4)",
+          }}
+        />
+        {/* left face */}
+        <div
+          className="absolute top-0 left-0 h-full"
+          style={{
+            width: height,
+            background: "linear-gradient(180deg, hsl(var(--iso-2)), hsl(var(--iso-3)))",
+            transform: `rotateY(-90deg) translateZ(0)`,
+            transformOrigin: "left center",
+          }}
+        />
+        {/* right face */}
+        <div
+          className="absolute top-0 right-0 h-full"
+          style={{
+            width: height,
+            background: "linear-gradient(180deg, hsl(var(--iso-2) / 0.85), hsl(var(--iso-3)))",
+            transform: `rotateX(90deg) translateZ(0)`,
+            transformOrigin: "center top",
+          }}
+        />
       </div>
-      <h3 className="font-heading text-base font-semibold mb-2 text-foreground">{title}</h3>
-      <p className="font-body text-sm text-muted-foreground leading-relaxed">{desc}</p>
-      <div className={`neon-underline mt-4 transition-all duration-700 ${hover ? "w-full" : "w-0"}`} />
+      <p className="mt-6 text-xs font-semibold text-iso-1 tracking-wide uppercase">{title}</p>
     </div>
   );
 };
@@ -67,17 +56,38 @@ const SkillsSection = () => {
   const { ref, visible } = useScrollReveal();
 
   return (
-    <section id="skills" className="relative py-32 z-10">
-      <div className="container mx-auto px-6">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <p className="font-mono text-xs text-primary tracking-[0.4em] mb-4">// CAPABILITIES</p>
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-glow-red text-primary mb-2">What I Do Best</h2>
-          <div className="neon-underline w-32 mx-auto" />
+    <section
+      id="skills"
+      className="relative py-32 overflow-hidden"
+      style={{ background: "linear-gradient(180deg, #03150D 0%, #052a1c 50%, #03150D 100%)" }}
+    >
+      <div className="absolute inset-0 opacity-[0.07]" style={{
+        backgroundImage:
+          "linear-gradient(hsl(var(--iso-2)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--iso-2)) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }} />
+
+      <div className="container mx-auto relative" ref={ref}>
+        <div className={`text-center mb-20 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="text-xs uppercase tracking-[0.4em] text-iso-2 mb-3">// Capabilities</p>
+          <h2 className="font-heading text-4xl md:text-6xl font-bold text-iso-1">What I do best</h2>
+          <p className="text-iso-1/60 mt-4 max-w-md mx-auto">An isometric grid — taller blocks mean deeper expertise.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {skills.map((s, i) => (
-            <SkillCard key={s.title} {...s} delay={i * 150} />
-          ))}
+
+        <div className="flex justify-center">
+          <div
+            className="iso-stage"
+            style={{ perspective: 1400 }}
+          >
+            <div
+              className="grid grid-cols-3 gap-10"
+              style={{ transform: "rotateX(55deg) rotateZ(-45deg)", transformStyle: "preserve-3d" }}
+            >
+              {skills.map((s, i) => (
+                <IsoBlock key={s.title} {...s} idx={i} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
