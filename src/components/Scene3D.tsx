@@ -191,7 +191,7 @@ const Scene3D = () => {
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
+      
       window.removeEventListener("resize", onResize);
       renderer.dispose();
       geometry.dispose();
