@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { scrollState } from "@/lib/scrollState";
 
 /**
  * Persistent full-screen Three.js canvas driven by scroll progress (0 → 1).
@@ -132,12 +133,11 @@ const Scene3D = () => {
     scene.fog = new THREE.FogExp2(0x000000, 0.05);
 
     // ---------- scroll handling ----------
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      progressRef.current = max > 0 ? window.scrollY / max : 0;
+    // Progress is driven externally by ScrollDriver (GSAP ScrollTrigger) so the
+    // morph points snap to section anchors rather than raw scroll position.
+    const readProgress = () => {
+      progressRef.current = scrollState.p;
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
 
     // ---------- resize ----------
     const onResize = () => {
@@ -156,6 +156,7 @@ const Scene3D = () => {
 
     const tick = () => {
       const time = clock.getElapsedTime();
+      readProgress();
       smoothP += (progressRef.current - smoothP) * 0.06; // smooth scrub
 
       // camera along path
