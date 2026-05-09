@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect, useRef, useState } from "react";
 import { Mail, Instagram, MapPin, Sparkles } from "lucide-react";
+import { useContactFlow } from "./ContactFlowProvider";
 
 const TiltTile = ({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -68,6 +69,7 @@ const Counter = ({ to, label, suffix = "" }: { to: number; label: string; suffix
 
 const ContactSection = () => {
   const { ref, visible } = useScrollReveal();
+  const { openProjectFlow } = useContactFlow();
 
   return (
     <section id="contact" className="relative py-32" style={{ background: "rgba(13,13,13,0.65)" }}>
@@ -125,8 +127,8 @@ const ContactSection = () => {
           {/* Instagram — 3x1 */}
           <TiltTile className="col-span-6 md:col-span-3 flex flex-col justify-between min-h-[105px]">
             <Instagram className="w-7 h-7 text-bento-amber" />
-            <a href="https://instagram.com/_technophile_.x" target="_blank" rel="noopener noreferrer" className="text-white font-semibold hover:text-bento-amber transition-colors">
-              @_technophile_.x
+            <a href="https://instagram.com/himank.co.in" target="_blank" rel="noopener noreferrer" className="text-white font-semibold hover:text-bento-amber transition-colors">
+              @himank.co.in
             </a>
           </TiltTile>
 
@@ -153,12 +155,13 @@ const ContactSection = () => {
               <p className="font-heading text-2xl text-black">Have a project?</p>
               <p className="text-black/70 text-sm">Tell me about it.</p>
             </div>
-            <a
-              href="mailto:himonkbavisetti@gmail.com"
+            <button
+              type="button"
+              onClick={openProjectFlow}
               className="bg-black text-white px-5 py-3 rounded-full font-semibold hover:scale-105 transition-transform"
             >
               Start →
-            </a>
+            </button>
           </TiltTile>
         </div>
 
