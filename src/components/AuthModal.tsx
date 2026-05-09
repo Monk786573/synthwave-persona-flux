@@ -55,9 +55,10 @@ const AuthModal = ({
       return;
     }
     setErr(null);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(r.data));
-    toast.success(`Welcome, ${r.data.name.split(" ")[0]}`);
-    onAuthed(r.data);
+    const user: AuthUser = { name: r.data.name, email: r.data.email };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+    toast.success(`Welcome, ${user.name.split(" ")[0]}`);
+    onAuthed(user);
     onOpenChange(false);
   };
 
