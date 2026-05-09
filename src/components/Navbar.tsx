@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useContactFlow } from "./ContactFlowProvider";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -10,6 +11,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { openProjectFlow } = useContactFlow();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -39,12 +41,13 @@ const Navbar = () => {
             </a>
           ))}
         </div>
-        <a
-          href="#contact"
+        <button
+          type="button"
+          onClick={openProjectFlow}
           className="hidden md:inline-flex items-center gap-2 bg-bento-amber text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform"
         >
           Let's talk →
-        </a>
+        </button>
       </div>
     </nav>
   );
