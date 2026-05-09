@@ -30,7 +30,7 @@ const WorkSection = () => {
     <section
       id="work"
       className="relative py-32 overflow-hidden"
-      style={{ background: "#050507" }}
+      style={{ background: "rgba(5,5,7,0.65)" }}
     >
       <div className="container mx-auto relative" ref={ref}>
         <div className={`text-center mb-16 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
