@@ -9,7 +9,7 @@ const AboutSection = () => {
       className="relative py-32 z-10 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #0F0C29 0%, #302B63 50%, #24243E 100%)",
+          "linear-gradient(135deg, rgba(15,12,41,0.65) 0%, rgba(48,43,99,0.6) 50%, rgba(36,36,62,0.7) 100%)",
       }}
     >
       {/* ambient orbs */}

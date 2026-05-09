@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, ArrowRight, Mail, MapPin, Code2, Palette } from "lucide-react";
+import profileImg from "@/assets/profile.png";
 
 const TiltTile = ({
   children,
@@ -51,7 +52,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 bg-bento-base"
+      className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16"
     >
       {/* ambient glow */}
       <div className="absolute -top-40 -left-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-30"
@@ -74,12 +75,15 @@ const HeroSection = () => {
 
           {/* Avatar tile */}
           <TiltTile
-            className="col-span-12 md:col-span-4 row-span-2 flex items-center justify-center min-h-[260px]"
+            className="col-span-12 md:col-span-4 row-span-2 overflow-hidden p-0 min-h-[260px]"
             style={{ background: "linear-gradient(145deg, hsl(var(--bento-amber)), #ff9358)" }}
           >
-            <span className="font-heading text-[8rem] md:text-[9rem] font-bold text-black leading-none drop-shadow-lg">
-              H
-            </span>
+            <img
+              src={profileImg}
+              alt="Himank — neon gamer portrait"
+              loading="eager"
+              className="w-full h-full object-cover"
+            />
           </TiltTile>
 
           {/* Main headline — large */}
