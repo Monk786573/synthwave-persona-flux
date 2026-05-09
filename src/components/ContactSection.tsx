@@ -70,7 +70,7 @@ const ContactSection = () => {
   const { ref, visible } = useScrollReveal();
 
   return (
-    <section id="contact" className="relative py-32 bg-bento-base">
+    <section id="contact" className="relative py-32" style={{ background: "rgba(13,13,13,0.65)" }}>
       <div className="container mx-auto" ref={ref}>
         <div className={`text-center mb-14 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <p className="text-xs uppercase tracking-[0.4em] text-bento-amber mb-3">// Reach out</p>
