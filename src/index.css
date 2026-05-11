@@ -71,7 +71,7 @@
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: hsl(0 0% 5%); }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(var(--bento-amber)), hsl(var(--clay-lavender)));
+    background: linear-gradient(180deg, #ffffff, #555555);
     border-radius: 6px;
   }
 }
