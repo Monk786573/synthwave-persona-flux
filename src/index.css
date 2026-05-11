@@ -5,53 +5,53 @@
 /* ===== Design tokens (dark mode default) ===== */
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 96%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
     --card: 0 0% 7%;
-    --card-foreground: 0 0% 96%;
+    --card-foreground: 0 0% 98%;
     --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 20 100% 58%;            /* amber accent */
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;               /* white accent */
     --primary-foreground: 0 0% 5%;
-    --secondary: 240 30% 12%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 240 10% 14%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14%;
     --muted-foreground: 0 0% 65%;
-    --accent: 270 70% 70%;
+    --accent: 0 0% 80%;
     --accent-foreground: 0 0% 5%;
-    --destructive: 0 84% 60%;
+    --destructive: 0 0% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 16%;
+    --border: 0 0% 18%;
     --input: 0 0% 16%;
-    --ring: 20 100% 58%;
+    --ring: 0 0% 80%;
     --radius: 1.25rem;
 
-    /* Section-specific palettes */
-    --clay-coral: 354 100% 87%;     /* #FFDCE1 */
-    --clay-lavender: 263 100% 86%;  /* #D4BAFF */
-    --clay-mint: 144 73% 83%;       /* #B8F0D0 */
-    --clay-cream: 40 100% 96%;
-    --clay-shadow: 240 30% 70%;
+    /* Monochrome palette (was section colors) */
+    --clay-coral: 0 0% 90%;
+    --clay-lavender: 0 0% 75%;
+    --clay-mint: 0 0% 85%;
+    --clay-cream: 0 0% 96%;
+    --clay-shadow: 0 0% 30%;
 
-    --glass-indigo-1: 245 53% 11%;  /* #0F0C29 */
-    --glass-indigo-2: 246 38% 28%;  /* #302B63 */
-    --glass-indigo-3: 240 32% 19%;  /* #24243E */
+    --glass-indigo-1: 0 0% 6%;
+    --glass-indigo-2: 0 0% 12%;
+    --glass-indigo-3: 0 0% 18%;
 
-    --iso-1: 152 100% 96%;          /* #E8FFF5 */
-    --iso-2: 158 64% 52%;           /* #34D399 */
-    --iso-3: 160 84% 16%;           /* #064E3B */
+    --iso-1: 0 0% 96%;
+    --iso-2: 0 0% 70%;
+    --iso-3: 0 0% 18%;
 
-    --bento-base: 0 0% 5%;          /* #0D0D0D */
-    --bento-amber: 18 100% 59%;     /* #FF6B2C */
+    --bento-base: 0 0% 4%;
+    --bento-amber: 0 0% 98%;            /* mapped to white */
 
     --sidebar-background: 0 0% 7%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 20 100% 58%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
     --sidebar-primary-foreground: 0 0% 5%;
     --sidebar-accent: 0 0% 14%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 0 0% 16%;
-    --sidebar-ring: 20 100% 58%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 0% 80%;
   }
 }
 
