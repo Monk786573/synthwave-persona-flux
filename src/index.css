@@ -166,7 +166,7 @@
   .tilt-3d { transform-style: preserve-3d; transition: transform .3s ease; }
 
   .text-gradient-amber {
-    background: linear-gradient(135deg, hsl(var(--bento-amber)), hsl(var(--clay-lavender)));
+    background: linear-gradient(135deg, #ffffff, #888888);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
