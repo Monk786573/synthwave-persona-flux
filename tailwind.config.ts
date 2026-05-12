@@ -8,8 +8,8 @@ export default {
     container: { center: true, padding: "1.5rem", screens: { "2xl": "1400px" } },
     extend: {
       fontFamily: {
-        heading: ["Clash Display", "Satoshi", "sans-serif"],
-        body: ["Satoshi", "Inter", "sans-serif"],
+        heading: ["Lato", "system-ui", "sans-serif"],
+        body: ["Lato", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
