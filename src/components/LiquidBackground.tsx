@@ -44,6 +44,7 @@ const LiquidBackground = () => {
     <div
       className="fixed inset-0 pointer-events-none overflow-hidden"
       aria-hidden="true"
+      data-parallax="0.25"
       style={{ zIndex: 0, background: "#000" }}
     >
       <svg
